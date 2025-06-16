@@ -1,0 +1,12 @@
+import java.util.*;
+class Question10{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int Sam_marks_in_Maths=94;
+        int Sam_marks_in_Physics=95;
+        int Sam_marks_in_Chemistry=96;
+        int Sam_average_percent_marks_in_PCM=((Sam_marks_in_Maths+Sam_marks_in_Physics+Sam_marks_in_Chemistry)/300)*100;
+        int Sam_average_marks_in_PCM=(Sam_marks_in_Maths+Sam_marks_in_Physics+Sam_marks_in_Chemistry)/3;
+        System.out.println("Sam average mark in PCM is"+" "+Sam_average_marks_in_PCM);
+    }
+}

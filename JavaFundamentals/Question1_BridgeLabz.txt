@@ -1,0 +1,10 @@
+import java.util.*;
+class Question1{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int birth_year_Harry=2000;
+        int current_year=2024;
+        int Harry_age_in_2024=current_year-birth_year_harry;
+        System.out.print(Harry_age_in_2024);
+    }
+}
