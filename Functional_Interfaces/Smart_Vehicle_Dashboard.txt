@@ -1,0 +1,60 @@
+// Step 1: Define the Vehicle interface
+interface Vehicle {
+    void displaySpeed();
+
+    // Default method for electric vehicles
+    default void displayBatteryPercentage() {
+        // Default implementation does nothing
+    }
+}
+
+// Step 2: Implement interface for different vehicle types
+class Car implements Vehicle {
+    private int speed;
+
+    public Car(int speed) {
+        this.speed = speed;
+    }
+
+    @Override
+    public void displaySpeed() {
+        System.out.println("Car speed: " + speed + " km/h");
+    }
+    // Car does not need battery info
+}
+
+class ElectricCar implements Vehicle {
+    private int speed;
+    private int batteryPercentage;
+
+    public ElectricCar(int speed, int batteryPercentage) {
+        this.speed = speed;
+        this.batteryPercentage = batteryPercentage;
+    }
+
+    @Override
+    public void displaySpeed() {
+        System.out.println("Electric Car speed: " + speed + " km/h");
+    }
+
+    @Override
+    public void displayBatteryPercentage() {
+        System.out.println("Battery Percentage: " + batteryPercentage + "%");
+    }
+}
+
+// Step 3: Test the vehicles
+public class SmartVehicleDashboardDemo {
+    public static void main(String[] args) {
+        Vehicle car = new Car(120);
+        Vehicle electricCar = new ElectricCar(100, 85);
+
+        Vehicle[] vehicles = {car, electricCar};
+
+        for (Vehicle v : vehicles) {
+            v.displaySpeed();
+            v.displayBatteryPercentage(); // only ElectricCar shows battery
+            System.out.println();
+        }
+    }
+}

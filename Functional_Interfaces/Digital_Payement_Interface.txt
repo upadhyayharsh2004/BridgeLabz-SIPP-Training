@@ -1,0 +1,42 @@
+// Step 1: Define the interface
+interface Payment {
+    void pay(double amount);
+}
+
+// Step 2: Implement the interface in different payment methods
+class UPI implements Payment {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid ₹" + amount + " using UPI.");
+    }
+}
+
+class CreditCard implements Payment {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid ₹" + amount + " using Credit Card.");
+    }
+}
+
+class Wallet implements Payment {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid ₹" + amount + " using Wallet.");
+    }
+}
+
+// Step 3: Test the digital payment system
+public class DigitalPaymentDemo {
+    public static void main(String[] args) {
+        Payment upi = new UPI();
+        Payment creditCard = new CreditCard();
+        Payment wallet = new Wallet();
+
+        Payment[] payments = {upi, creditCard, wallet};
+
+        System.out.println("💳 Processing Payments...");
+        for (Payment p : payments) {
+            p.pay(500.0); // paying ₹500 via each method
+        }
+    }
+}

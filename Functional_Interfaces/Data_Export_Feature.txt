@@ -1,0 +1,60 @@
+// Step 1: Define interface with default method
+interface DataExporter {
+    void exportToCSV();
+    void exportToPDF();
+
+    // Default method to export to JSON
+    default void exportToJSON() {
+        System.out.println("Exported data to JSON using default method.");
+    }
+}
+
+// Step 2: Implement interface in different modules
+class SalesReport implements DataExporter {
+    @Override
+    public void exportToCSV() {
+        System.out.println("Sales report exported to CSV.");
+    }
+
+    @Override
+    public void exportToPDF() {
+        System.out.println("Sales report exported to PDF.");
+    }
+    // Uses default exportToJSON()
+}
+
+class InventoryReport implements DataExporter {
+    @Override
+    public void exportToCSV() {
+        System.out.println("Inventory report exported to CSV.");
+    }
+
+    @Override
+    public void exportToPDF() {
+        System.out.println("Inventory report exported to PDF.");
+    }
+
+    // Override JSON export if needed
+    @Override
+    public void exportToJSON() {
+        System.out.println("Inventory report exported to JSON with custom implementation.");
+    }
+}
+
+// Step 3: Test the exporters
+public class DataExportDemo {
+    public static void main(String[] args) {
+        DataExporter[] exporters = {new SalesReport(), new InventoryReport()};
+
+        System.out.println("Exporting CSV and PDF...");
+        for (DataExporter exporter : exporters) {
+            exporter.exportToCSV();
+            exporter.exportToPDF();
+        }
+
+        System.out.println("\nExporting JSON...");
+        for (DataExporter exporter : exporters) {
+            exporter.exportToJSON();
+        }
+    }
+}

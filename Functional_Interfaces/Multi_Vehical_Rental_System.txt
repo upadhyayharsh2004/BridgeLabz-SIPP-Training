@@ -1,0 +1,65 @@
+// Step 1: Define the interface
+interface VehicleRental {
+    void rent();
+    void returnVehicle();
+}
+
+// Step 2: Implement the interface for different vehicle types
+class Car implements VehicleRental {
+    @Override
+    public void rent() {
+        System.out.println("Car has been rented.");
+    }
+
+    @Override
+    public void returnVehicle() {
+        System.out.println("Car has been returned.");
+    }
+}
+
+class Bike implements VehicleRental {
+    @Override
+    public void rent() {
+        System.out.println("Bike has been rented.");
+    }
+
+    @Override
+    public void returnVehicle() {
+        System.out.println("Bike has been returned.");
+    }
+}
+
+class Bus implements VehicleRental {
+    @Override
+    public void rent() {
+        System.out.println("Bus has been rented.");
+    }
+
+    @Override
+    public void returnVehicle() {
+        System.out.println("Bus has been returned.");
+    }
+}
+
+// Step 3: Test the rental system
+public class MultiVehicleRentalSystem {
+    public static void main(String[] args) {
+        // Create different vehicle objects
+        VehicleRental car = new Car();
+        VehicleRental bike = new Bike();
+        VehicleRental bus = new Bus();
+
+        // Store them in an array for polymorphic behavior
+        VehicleRental[] vehicles = {car, bike, bus};
+
+        System.out.println("🚗 Renting Vehicles...");
+        for (VehicleRental v : vehicles) {
+            v.rent();
+        }
+
+        System.out.println("\n🔄 Returning Vehicles...");
+        for (VehicleRental v : vehicles) {
+            v.returnVehicle();
+        }
+    }
+}

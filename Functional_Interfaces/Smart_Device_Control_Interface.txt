@@ -1,0 +1,64 @@
+// Step 1: Define the interface
+interface SmartDeviceControl {
+    void turnOn();
+    void turnOff();
+}
+
+// Step 2: Implement the interface in different device classes
+class Light implements SmartDeviceControl {
+    @Override
+    public void turnOn() {
+        System.out.println("Light is turned ON.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println("Light is turned OFF.");
+    }
+}
+
+class AC implements SmartDeviceControl {
+    @Override
+    public void turnOn() {
+        System.out.println("AC is turned ON.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println("AC is turned OFF.");
+    }
+}
+
+class TV implements SmartDeviceControl {
+    @Override
+    public void turnOn() {
+        System.out.println("TV is turned ON.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println("TV is turned OFF.");
+    }
+}
+
+// Step 3: Test the devices
+public class SmartHomeDemo {
+    public static void main(String[] args) {
+        SmartDeviceControl light = new Light();
+        SmartDeviceControl ac = new AC();
+        SmartDeviceControl tv = new TV();
+
+        // Polymorphism: all devices share the same interface
+        SmartDeviceControl[] devices = {light, ac, tv};
+
+        System.out.println("Turning ON all devices...");
+        for (SmartDeviceControl device : devices) {
+            device.turnOn();
+        }
+
+        System.out.println("\nTurning OFF all devices...");
+        for (SmartDeviceControl device : devices) {
+            device.turnOff();
+        }
+    }
+}

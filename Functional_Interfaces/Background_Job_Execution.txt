@@ -1,0 +1,36 @@
+public class BackgroundJobExecution {
+    public static void main(String[] args) {
+        // Runnable job 1: Sending email
+        Runnable emailJob = () -> {
+            System.out.println("📧 Sending email... [Thread: " + Thread.currentThread().getName() + "]");
+            try {
+                Thread.sleep(2000); // simulate delay
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("✅ Email sent.");
+        };
+
+        // Runnable job 2: Data backup
+        Runnable backupJob = () -> {
+            System.out.println("💾 Starting data backup... [Thread: " + Thread.currentThread().getName() + "]");
+            try {
+                Thread.sleep(3000); // simulate delay
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("✅ Data backup completed.");
+        };
+
+        // Start both jobs asynchronously in separate threads
+        Thread thread1 = new Thread(emailJob);
+        Thread thread2 = new Thread(backupJob);
+
+        System.out.println("🚀 Starting background jobs...");
+        thread1.start();
+        thread2.start();
+
+        // Main thread continues without waiting
+        System.out.println("➡️ Main program continues running...");
+    }
+}

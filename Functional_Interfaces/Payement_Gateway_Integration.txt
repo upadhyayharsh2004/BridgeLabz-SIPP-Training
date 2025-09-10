@@ -1,0 +1,62 @@
+// Step 1: Define interface with default method
+interface PaymentProcessor {
+    void pay(double amount);
+
+    // Default refund method
+    default void refund(double amount) {
+        System.out.println("Refund of $" + amount + " processed by default method.");
+    }
+}
+
+// Step 2: Implement interface for different payment providers
+class PayPal implements PaymentProcessor {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid $" + amount + " via PayPal.");
+    }
+
+    // Uses default refund() from interface
+}
+
+class Stripe implements PaymentProcessor {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid $" + amount + " via Stripe.");
+    }
+
+    // Override default refund
+    @Override
+    public void refund(double amount) {
+        System.out.println("Refund of $" + amount + " processed by Stripe.");
+    }
+}
+
+class CreditCard implements PaymentProcessor {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid $" + amount + " via Credit Card.");
+    }
+
+    // Uses default refund() from interface
+}
+
+// Step 3: Test payment gateway integration
+public class PaymentGatewayDemo {
+    public static void main(String[] args) {
+        PaymentProcessor[] processors = {
+            new PayPal(),
+            new Stripe(),
+            new CreditCard()
+        };
+
+        System.out.println("Processing payments...");
+        for (PaymentProcessor p : processors) {
+            p.pay(100.0);
+        }
+
+        System.out.println("\nProcessing refunds...");
+        for (PaymentProcessor p : processors) {
+            p.refund(50.0);
+        }
+    }
+}

@@ -1,0 +1,43 @@
+// Step 1: Define a class that implements Cloneable
+class Employee implements Cloneable {
+    private int id;
+    private String name;
+
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    // Override clone() method
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); // shallow copy
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [ID=" + id + ", Name=" + name + "]";
+    }
+}
+
+// Step 2: Test cloning
+public class CloneableDemo {
+    public static void main(String[] args) {
+        try {
+            Employee emp1 = new Employee(101, "Alice");
+            System.out.println("Original Employee: " + emp1);
+
+            // Clone the object
+            Employee emp2 = (Employee) emp1.clone();
+            System.out.println("Cloned Employee: " + emp2);
+
+            // Modify cloned object to check independence
+            emp2 = new Employee(102, "Bob"); // new object for demonstration
+            System.out.println("Modified Cloned Employee: " + emp2);
+            System.out.println("Original Employee after modification: " + emp1);
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+}

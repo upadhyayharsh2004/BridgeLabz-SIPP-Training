@@ -1,0 +1,29 @@
+import java.util.function.Function;
+
+public class StringLengthChecker {
+    public static void main(String[] args) {
+        int limit = 20; // character limit
+
+        // Function to calculate string length
+        Function<String, Integer> lengthChecker = str -> str.length();
+
+        // Example messages
+        String[] messages = {
+            "Hello, World!",
+            "This is a long message exceeding the limit.",
+            "Java Functional Interfaces",
+            "Short msg"
+        };
+
+        for (String msg : messages) {
+            int length = lengthChecker.apply(msg); // get string length
+            System.out.print("Message: \"" + msg + "\" (Length: " + length + ") -> ");
+            
+            if (length > limit) {
+                System.out.println("⚠️ Exceeds limit!");
+            } else {
+                System.out.println("✅ Within limit.");
+            }
+        }
+    }
+}

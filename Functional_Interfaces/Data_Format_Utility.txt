@@ -1,0 +1,30 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+// Step 1: Define interface with static date formatting method
+interface DateFormatterUtils {
+
+    // Format date in the given pattern
+    static String formatDate(Date date, String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(date);
+    }
+}
+
+// Step 2: Test the date formatting utility
+public class DateFormatUtilityDemo {
+    public static void main(String[] args) {
+        Date now = new Date();
+
+        // Different date formats
+        String pattern1 = "dd/MM/yyyy";         // e.g., 10/09/2025
+        String pattern2 = "MMMM dd, yyyy";      // e.g., September 10, 2025
+        String pattern3 = "yyyy-MM-dd HH:mm:ss"; // e.g., 2025-09-10 08:30:00
+
+        System.out.println("Original date: " + now);
+
+        System.out.println("Formatted (dd/MM/yyyy): " + DateFormatterUtils.formatDate(now, pattern1));
+        System.out.println("Formatted (MMMM dd, yyyy): " + DateFormatterUtils.formatDate(now, pattern2));
+        System.out.println("Formatted (yyyy-MM-dd HH:mm:ss): " + DateFormatterUtils.formatDate(now, pattern3));
+    }
+}

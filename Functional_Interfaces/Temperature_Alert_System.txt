@@ -1,0 +1,22 @@
+import java.util.function.Predicate;
+
+public class TemperatureAlertSystem {
+    public static void main(String[] args) {
+        double threshold = 37.5; // example threshold in °C
+
+        // Predicate to check if temperature exceeds threshold
+        Predicate<Double> isHighTemp = temp -> temp > threshold;
+
+        // Example temperature readings
+        double[] temperatures = {36.8, 37.2, 38.1, 36.5, 39.0};
+
+        for (double temp : temperatures) {
+            System.out.print("Temperature: " + temp + "°C -> ");
+            if (isHighTemp.test(temp)) {
+                System.out.println("⚠️ Alert! Temperature crossed threshold.");
+            } else {
+                System.out.println("✅ Normal.");
+            }
+        }
+    }
+}
