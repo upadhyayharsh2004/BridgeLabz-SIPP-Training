@@ -1,0 +1,90 @@
+import java.io.*;
+
+// Thread that writes data to the pipe
+class WriterThread extends Thread {
+    private PipedOutputStream pos;
+
+    public WriterThread(PipedOutputStream pos) {
+        this.pos = pos;
+    }
+
+    @Override
+    public void run() {
+        try {
+            String[] messages = {
+                "Hello from WriterThread!",
+                "Piped streams are useful for communication.",
+                "This is the last message."
+            };
+
+            for (String msg : messages) {
+                pos.write(msg.getBytes()); // write bytes into pipe
+                pos.flush();               // ensure data is sent immediately
+                System.out.println("Writer: " + msg);
+                Thread.sleep(1000);        // simulate delay
+            }
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Writer error: " + e.getMessage());
+        } finally {
+            try {
+                pos.close();
+            } catch (IOException e) {
+                System.err.println("Error closing PipedOutputStream: " + e.getMessage());
+            }
+        }
+    }
+}
+
+// Thread that reads data from the pipe
+class ReaderThread extends Thread {
+    private PipedInputStream pis;
+
+    public ReaderThread(PipedInputStream pis) {
+        this.pis = pis;
+    }
+
+    @Override
+    public void run() {
+        try {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = pis.read(buffer)) != -1) {
+                String received = new String(buffer, 0, bytesRead);
+                System.out.println("Reader: " + received);
+            }
+        } catch (IOException e) {
+            System.err.println("Reader error: " + e.getMessage());
+        } finally {
+            try {
+                pis.close();
+            } catch (IOException e) {
+                System.err.println("Error closing PipedInputStream: " + e.getMessage());
+            }
+        }
+    }
+}
+
+public class PipedStreamDemo {
+    public static void main(String[] args) {
+        try {
+            // Create piped input and output streams
+            PipedOutputStream pos = new PipedOutputStream();
+            PipedInputStream pis = new PipedInputStream(pos); // connect directly
+
+            // Create and start threads
+            WriterThread writer = new WriterThread(pos);
+            ReaderThread reader = new ReaderThread(pis);
+
+            writer.start();
+            reader.start();
+
+            // Wait for both threads to finish
+            writer.join();
+            reader.join();
+
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Main error: " + e.getMessage());
+        }
+    }
+}

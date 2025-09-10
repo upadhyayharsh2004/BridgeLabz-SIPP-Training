@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+import java.util.Map.Entry;
+
+public class WordFrequencyCounter {
+    public static void main(String[] args) {
+        String filePath = "sample.txt";  
+
+        // HashMap to store word counts
+        HashMap<String, Integer> wordCountMap = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                // Convert line to lowercase, remove punctuation, split by spaces
+                String[] words = line.toLowerCase().replaceAll("[^a-zA-Z0-9 ]", "").split("\\s+");
+
+                for (String word : words) {
+                    if (!word.isEmpty()) {
+                        wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);
+                    }
+                }
+            }
+
+            // ✅ Sort words by frequency (descending)
+            List<Entry<String, Integer>> sortedList = new ArrayList<>(wordCountMap.entrySet());
+            sortedList.sort((a, b) -> b.getValue().compareTo(a.getValue()));
+
+            // 📌 Display total word count
+            int totalWords = wordCountMap.values().stream().mapToInt(Integer::intValue).sum();
+            System.out.println("Total words in file: " + totalWords);
+
+            // 📌 Display top 5 most frequent words
+            System.out.println("\nTop 5 most frequent words:");
+            sortedList.stream().limit(5).forEach(entry ->
+                System.out.println(entry.getKey() + " : " + entry.getValue())
+            );
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+}

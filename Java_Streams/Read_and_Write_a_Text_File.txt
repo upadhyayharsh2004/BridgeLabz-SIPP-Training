@@ -1,0 +1,34 @@
+import java.io.*;
+
+public class FileCopy {
+    public static void main(String[] args) {
+        // Change these file paths as needed
+        String sourceFile = "source.txt";
+        String destFile = "destination.txt";
+
+        File inputFile = new File(sourceFile);
+
+        // Check if source file exists
+        if (!inputFile.exists()) {
+            System.out.println("Source file does not exist: " + sourceFile);
+            return;
+        }
+
+        try (
+            FileInputStream fis = new FileInputStream(inputFile);
+            FileOutputStream fos = new FileOutputStream(destFile) // creates if not exists
+        ) {
+            byte[] buffer = new byte[1024]; // read in chunks of 1KB
+            int bytesRead;
+
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+
+            System.out.println("File copied successfully from " + sourceFile + " to " + destFile);
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while copying the file: " + e.getMessage());
+        }
+    }
+}

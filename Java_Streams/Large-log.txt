@@ -1,0 +1,5 @@
+INFO: Application started successfully
+WARNING: Low disk space
+ERROR: Database connection failed
+error: Null pointer exception in module
+INFO: Task completed
